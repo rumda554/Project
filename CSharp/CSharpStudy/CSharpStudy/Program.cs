@@ -29,24 +29,23 @@ namespace CSharpStudy
     {
         static async Task Main(string[] args)
         {
-            Coffee cup = PourCoffee();
+            var cup = PourCoffee();
             Console.WriteLine("coffee is ready");
 
-            Task<Egg> eggsTask = FryEggs(2);
-            Egg eggs = await eggsTask;
+            var eggsTask = FryEggs(2);
+            var baconTask = FryBacon(3);
+            var toastTask = MakeToastWithButterAndJam(2);
+            
+            var eggs = await eggsTask;
             Console.WriteLine("eggs is ready");
 
-            Task<Bacon> baconTask = FryBacon(3);
-            Bacon bacon = await baconTask;
+            var bacon = await baconTask;
             Console.WriteLine("bacon is ready");
 
-            Task<Toast> toastTask = ToastBread(2);
-            Toast toast = await toastTask;
-            ApplyButter(toast);
-            ApplyJam(toast);
+            var toast = await toastTask;
             Console.WriteLine("toast is ready");
 
-            Juice oj = PourOrangeJuice();
+            var oj = PourOrangeJuice();
             Console.WriteLine("oj is ready");
 
             Console.WriteLine("breakfast is ready");
@@ -55,6 +54,14 @@ namespace CSharpStudy
         private static Juice PourOrangeJuice()
         {
             return null;
+        }
+
+        private static async Task<Toast> MakeToastWithButterAndJam(int num)
+        {
+            var toast = await ToastBread(num);
+            ApplyButter(toast);
+            ApplyJam(toast);
+            return toast;
         }
 
         private static void ApplyJam(Toast toast)
