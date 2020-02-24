@@ -35,3 +35,8 @@
 .vs/
 bin/
 obj/
+Debug/
+
+
+*.filters
+*.user
