@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace CSharpStudy
 {
@@ -26,18 +27,18 @@ namespace CSharpStudy
 
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             Coffee cup = PourCoffee();
             Console.WriteLine("coffee is ready");
 
-            Egg eggs = FryEggs();
+            Egg eggs = await FryEggs(2);
             Console.WriteLine("eggs is ready");
 
-            Bacon bacon = FryBacon();
+            Bacon bacon = await FryBacon(3);
             Console.WriteLine("bacon is ready");
 
-            Toast toast = ToastBread();
+            Toast toast = await ToastBread(2);
             ApplyButter(toast);
             ApplyJam(toast);
             Console.WriteLine("toast is ready");
@@ -63,17 +64,17 @@ namespace CSharpStudy
             return;
         }
 
-        private static Toast ToastBread()
+        private static Task<Toast> ToastBread(int num)
         {
             return null;
         }
 
-        private static Bacon FryBacon()
+        private static Task<Bacon> FryBacon(int num)
         {
             return null;
         }
 
-        private static Egg FryEggs()
+        private static Task<Egg> FryEggs(int num)
         {
             return null;
         }
