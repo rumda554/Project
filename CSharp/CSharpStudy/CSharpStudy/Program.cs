@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CSharpStudy
@@ -35,15 +37,25 @@ namespace CSharpStudy
             var eggsTask = FryEggs(2);
             var baconTask = FryBacon(3);
             var toastTask = MakeToastWithButterAndJam(2);
-            
-            var eggs = await eggsTask;
-            Console.WriteLine("eggs is ready");
 
-            var bacon = await baconTask;
-            Console.WriteLine("bacon is ready");
-
-            var toast = await toastTask;
-            Console.WriteLine("toast is ready");
+            var allTasks = new List<Task> { eggsTask, baconTask, toastTask};
+            while (allTasks.Any())
+            {
+                var finished = await Task.WhenAny(allTasks);
+                if (finished == eggsTask)
+                {
+                    Console.WriteLine("eggs is ready");
+                }
+                else if (finished == baconTask)
+                {
+                    Console.WriteLine("bacon is ready");
+                }
+                else if (finished == toastTask)
+                {
+                    Console.WriteLine("toast is ready");
+                }
+                allTasks.Remove(finished);
+            }
 
             var oj = PourOrangeJuice();
             Console.WriteLine("oj is ready");
