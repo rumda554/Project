@@ -65,7 +65,8 @@ namespace CSharpStudy
 
         private static Juice PourOrangeJuice()
         {
-            return null;
+            var juice = new Juice();
+            return juice;
         }
 
         private static async Task<Toast> MakeToastWithButterAndJam(int num)
@@ -76,14 +77,16 @@ namespace CSharpStudy
             return toast;
         }
 
-        private static void ApplyJam(Toast toast)
+        private static bool ApplyJam(Toast toast)
         {
-            return;
+            // TODO: Apply Jam to Toast
+            return true;
         }
 
-        private static void ApplyButter(Toast toast)
+        private static bool ApplyButter(Toast toast)
         {
-            return;
+            // TODO: Apply Butter to Toast
+            return true;
         }
 
         private static Task<Toast> ToastBread(int num)
@@ -93,6 +96,8 @@ namespace CSharpStudy
                 var toasts = new Toast();
                 return toasts;
             });
+
+            taskToast.Start();
 
             return taskToast;
         }
@@ -104,6 +109,8 @@ namespace CSharpStudy
                 var bacons = new Bacon();
                 return bacons;
             });
+
+            taskBacon.Start();
 
             return taskBacon;
         }
@@ -117,6 +124,9 @@ namespace CSharpStudy
                 var eggs = new Egg();
                 return eggs;
             });
+
+
+            taskEgg.Start();
 
             return taskEgg;
         }
