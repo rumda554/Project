@@ -32,13 +32,16 @@ namespace CSharpStudy
             Coffee cup = PourCoffee();
             Console.WriteLine("coffee is ready");
 
-            Egg eggs = await FryEggs(2);
+            Task<Egg> eggsTask = FryEggs(2);
+            Egg eggs = await eggsTask;
             Console.WriteLine("eggs is ready");
 
-            Bacon bacon = await FryBacon(3);
+            Task<Bacon> baconTask = FryBacon(3);
+            Bacon bacon = await baconTask;
             Console.WriteLine("bacon is ready");
 
-            Toast toast = await ToastBread(2);
+            Task<Toast> toastTask = ToastBread(2);
+            Toast toast = await toastTask;
             ApplyButter(toast);
             ApplyJam(toast);
             Console.WriteLine("toast is ready");
@@ -66,17 +69,37 @@ namespace CSharpStudy
 
         private static Task<Toast> ToastBread(int num)
         {
-            return null;
+            var taskToast = new Task<Toast>(() =>
+            {
+                var toasts = new Toast();
+                return toasts;
+            });
+
+            return taskToast;
         }
 
         private static Task<Bacon> FryBacon(int num)
         {
-            return null;
+            var taskBacon = new Task<Bacon>(() =>
+            {
+                var bacons = new Bacon();
+                return bacons;
+            });
+
+            return taskBacon;
         }
 
         private static Task<Egg> FryEggs(int num)
         {
-            return null;
+            // TODO: num 만큼 만드는 작업 추가
+
+            var taskEgg = new Task<Egg>(() =>
+            {
+                var eggs = new Egg();
+                return eggs;
+            });
+
+            return taskEgg;
         }
 
         private static Coffee PourCoffee()
