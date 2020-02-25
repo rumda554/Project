@@ -9,6 +9,7 @@
 
 // 여기에 미리 컴파일하려는 헤더 추가
 #include <boost/asio.hpp>
+#include <boost/bind.hpp>
 
 #include "framework.h"
 #include "session.hpp"
