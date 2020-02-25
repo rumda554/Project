@@ -154,6 +154,7 @@
     <ClCompile Include="LibTestServer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Libs\memorypool.hpp" />
     <ClInclude Include="Libs\singleton.hpp" />
     <ClInclude Include="Libs\test.h" />
     <ClInclude Include="stdafx.h" />
