@@ -32,7 +32,7 @@ public:
 int main()
 {
 	std::cout << "Hello World!\n";
-	//auto v = RumdaLib::plus(1, 2);
+	auto v = RumdaLib::plus(1, 2);
 
 	int loopCnt = 1000000;
 

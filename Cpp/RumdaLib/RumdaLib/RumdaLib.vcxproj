@@ -150,7 +150,6 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="memorypool.hpp" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="session.hpp" />
     <ClInclude Include="singleton.hpp" />
     <ClInclude Include="test.h" />
   </ItemGroup>
