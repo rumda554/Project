@@ -4,9 +4,6 @@ namespace RumdaLib
 	template<typename T>
 	class CSingleton
 	{
-	private:
-		static T* _instance;
-
 	protected:
 		CSingleton() {}
 		virtual ~CSingleton() {}
@@ -29,6 +26,10 @@ namespace RumdaLib
 		{
 			delete _instance;
 		}
+
+	private:
+		static T* _instance;
+
 	};
 
 	template<typename T> T* CSingleton<T>::_instance = nullptr;
