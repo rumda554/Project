@@ -158,9 +158,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Libs\memorypool.hpp" />
-    <ClInclude Include="Libs\singleton.hpp" />
-    <ClInclude Include="Libs\test.h" />
+    <ClInclude Include="Libs\header\memorypool.hpp" />
+    <ClInclude Include="Libs\header\singleton.hpp" />
+    <ClInclude Include="Libs\header\streambuffer.h" />
+    <ClInclude Include="Libs\header\test.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TestServer.cpp" />
   </ItemGroup>

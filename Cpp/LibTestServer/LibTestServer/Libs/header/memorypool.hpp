@@ -52,7 +52,7 @@ namespace RumdaLib
 
 		static void deloc()
 		{
-			
+
 		}
 
 	private:
