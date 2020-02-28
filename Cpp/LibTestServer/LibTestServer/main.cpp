@@ -50,10 +50,40 @@ int main()
 	std::cout << "Took" << duration << "Millisec" << std::endl;
 
 
+	// int형 데이터 3개 혹은 패킷 데이터를 메모리 버퍼에 쌓아야 할때
+	auto memoryBuffer = new char[100]; // 100바이트 짜리 버퍼가 있다 치자
+
+	// 예를 들어 패킷으로 int 형 자료 3개가 왔다 친다
+	int userlevel = 11;
+	int itemlevel = 22;
+	int status = 1;
+
+	// 메모리 버퍼에 쌓기 - 쓰기도 불편하고 유지보수가 어려움
+	memcpy(memoryBuffer, &userlevel, sizeof(int));
+	memcpy(memoryBuffer + sizeof(int), &itemlevel, sizeof(int));
+	memcpy(memoryBuffer + sizeof(int) + sizeof(int), &status, sizeof(int));
+
 	
 
-}
+	// 스트림버퍼 클래스를 이용한 방법
+	uint32_t userlevel2 = 11;
+	uint32_t itemlevel2 = 22;
+	uint32_t status2 = 1;
 
+	RumdaLib::CStreamBuffer stream;
+	//auto memoryBuffer2 = new uint8_t[100]; // 100byte buffer
+	//auto memoryBuffer2 = new uint8_t; // 1byte buffer
+	auto memoryBuffer2 = new char[100];
+
+	stream.Set(memoryBuffer2, 0);
+	stream.WriteData(&userlevel); // 쓸때 버퍼를 늘리고 값을 채움
+	stream.WriteData(&itemlevel);
+	stream.WriteData(&status);
+
+	delete[] memoryBuffer;
+
+	delete[] memoryBuffer2;
+}
 
 // 코드 작성 후기
 //1. 막상 라이브러리를 쓰려고 하면 해더파일과 라이브러리 프로젝트 후 빌드 된.lib 파일이 필요함

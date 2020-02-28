@@ -12,15 +12,25 @@ namespace RumdaLib
 	}
 	bool CStreamBuffer::Set(uint8_t* buffer)
 	{
-		if (!buffer)
+		/*if (!buffer)
 			return false;
 
-		_bufferPos = buffer;
+		_bufferPos = buffer;*/
 		_size = 0;
 
 		return true;
 	}
-	uint8_t* CStreamBuffer::Get()
+	bool CStreamBuffer::Set(char* buffer, int size)
+	{
+		if (!buffer)
+			return false;
+
+		_bufferPos = buffer;
+		_size = size;
+
+		return true;
+	}
+	char* CStreamBuffer::Get()
 	{
 		return _bufferPos;
 	}
@@ -52,6 +62,11 @@ namespace RumdaLib
 	{
 		memcpy(data, _bufferPos + _size, sizeof(uint64_t));
 		_size -= sizeof(uint8_t);
+	}
+	void CStreamBuffer::ReadData(int* data)
+	{
+		memcpy(data, _bufferPos + _size, sizeof(int));
+		_size -= sizeof(int);
 	}
 	void CStreamBuffer::ReadData(float* data)
 	{
@@ -104,6 +119,11 @@ namespace RumdaLib
 	{
 		memcpy(_bufferPos + _size, &data, sizeof(uint64_t));
 		_size += sizeof(uint64_t);
+	}
+	void CStreamBuffer::WriteData(int* data)
+	{
+		memcpy(_bufferPos + _size, &data, sizeof(int));
+		_size += sizeof(int);
 	}
 	void CStreamBuffer::WriteData(float* data)
 	{

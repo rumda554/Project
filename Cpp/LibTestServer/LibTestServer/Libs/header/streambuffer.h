@@ -9,7 +9,9 @@ namespace RumdaLib
 
 	public:
 		bool Set(uint8_t* buffer);
-		uint8_t* Get();
+		bool Set(char* buffer, int size);
+		//uint8_t* Get();
+		char* Get();
 		uint32_t Size();
 
 		void ReadData(bool* data);
@@ -17,6 +19,7 @@ namespace RumdaLib
 		void ReadData(uint16_t* data);
 		void ReadData(uint32_t* data);
 		void ReadData(uint64_t* data);
+		void ReadData(int* data);
 		void ReadData(float* data);
 		void ReadData(double* data);
 		void ReadData(long double* data);
@@ -29,6 +32,7 @@ namespace RumdaLib
 		void WriteData(uint16_t* data);
 		void WriteData(uint32_t* data);
 		void WriteData(uint64_t* data);
+		void WriteData(int* data);
 		void WriteData(float* data);
 		void WriteData(double* data);
 		void WriteData(long double* data);
@@ -36,7 +40,8 @@ namespace RumdaLib
 		void WriteData(char* data);
 
 	private:
-		uint8_t* _bufferPos; // 버퍼의 위치
+		//uint8_t* _bufferPos; // 버퍼의 위치
+		char* _bufferPos;
 		uint64_t _size;		// 크기
 	};
 }

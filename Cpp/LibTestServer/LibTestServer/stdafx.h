@@ -10,5 +10,6 @@
 #include "Libs/header/test.h"
 #include "Libs/header/singleton.hpp"
 #include "Libs/header/memorypool.hpp"
+#include "Libs/header/streambuffer.h"
 
 #pragma comment (lib, "RumdaLib.lib")
