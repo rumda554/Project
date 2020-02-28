@@ -62,7 +62,10 @@ int main()
 	memcpy(memoryBuffer, &userlevel, sizeof(int));
 	memcpy(memoryBuffer + sizeof(int), &itemlevel, sizeof(int));
 	memcpy(memoryBuffer + sizeof(int) + sizeof(int), &status, sizeof(int));
-
+	// 이시점의 디버깅으로 메모리값 확인 
+	// 0b 00 00 00 16 00 00 00 01 00 00 00 cd cd cd cd cd ....
+	// 11          22           1          초기화 되지 않은 값
+          
 	
 
 	// 스트림버퍼 클래스를 이용한 방법
@@ -71,33 +74,32 @@ int main()
 	uint32_t status2 = 1;
 
 	RumdaLib::CStreamBuffer stream;
-	//auto memoryBuffer2 = new uint8_t[100]; // 100byte buffer
-	//auto memoryBuffer2 = new uint8_t; // 1byte buffer
 	auto memoryBuffer2 = new char[100];
 
-	stream.Set(memoryBuffer2, 0);
+	stream.Set(memoryBuffer2);
 	stream.WriteData(&userlevel); // 쓸때 버퍼를 늘리고 값을 채움
 	stream.WriteData(&itemlevel);
 	stream.WriteData(&status);
+	// 메모리값 일치함을 확인
+	// 0b 00 00 00 16 00 00 00 01 00 00 00 cd cd cd cd cd
+
 
 	delete[] memoryBuffer;
 
 	delete[] memoryBuffer2;
 }
 
-// 코드 작성 후기
+// 초기프로젝트 구성 작성 후기
 //1. 막상 라이브러리를 쓰려고 하면 해더파일과 라이브러리 프로젝트 후 빌드 된.lib 파일이 필요함
-
 //2. 템플릿으로 작성되는 코드는 해더와 cpp를 분리하기 불가능 하므로 hpp로 작성하고 (C++ style) 하나로 묶어야 함.
 //2-1. 다른 방법도 있겠지만 너무 불편할듯..
-
 //3. 라이브러리 개발과 테스트 중에는 라이브러리 작성후 빌드 그리고 테스트할 프로젝트에 배포 하는 과정이 너무 불편함.
-
 //4. 라이브러리를 써서 얻는 장점 (cpp파일을 가릴 수 있다.) (나중에 복잡한 cpp단을 알 필요가 없음)
 //4-1. 장점에 비해 단점이 더 불편한 느낌..
 
 
-// 메모리 풀 작성 후기(책기반)
+
+// memoryPool 작성 후기(책기반)
 // 반복적인 new 와 delete시 프로그램의 속도에 영향이 미친다
 // 미리 커다랗게 (객체 크기 * 임의로 정한 블록사이즈) 메모리 할당을 해놓고
 // 메모리 할당이 오면 그 풀(메모리풀) 객체에 붙이면 객체 풀 끄내고 넣는다.
@@ -113,9 +115,14 @@ int main()
 // 그냥 new와 delete 는 정말 성능이 구린걸까?
 
 
+
 // 부스트 라이브러리 적용 서버 작성 후기
 // 1. 단순 에코 서버를 유연한 형태의 서버를 만들 수 있는 구조로 변경 필요
 // 2. 링크 에러 발생 (임시 커밋 포함 제외)
 // 3. boost package를 전부 포함시키지 않는 방법? (용량), 
 // 3-1. 라이브러리 프로젝트에도 패키지를 포함했는데 서버에도 패키지를 포함하긴 좀 그렇다.
 
+
+
+// streamBuffer 작성 후기
+// 정렬되서 오는 다양한 자료형의 패킷을 하나의 메모리버퍼에 쌓고 읽는 작업을 확인하였다.

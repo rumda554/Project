@@ -8,8 +8,7 @@ namespace RumdaLib
 		virtual ~CStreamBuffer();
 
 	public:
-		bool Set(uint8_t* buffer);
-		bool Set(char* buffer, int size);
+		bool Set(char* buffer);
 		//uint8_t* Get();
 		char* Get();
 		uint32_t Size();
@@ -40,8 +39,9 @@ namespace RumdaLib
 		void WriteData(char* data);
 
 	private:
-		//uint8_t* _bufferPos; // 버퍼의 위치
-		char* _bufferPos;
-		uint64_t _size;		// 크기
+		int _size;		// 버퍼 크기
+		int _pos;		// 버퍼 사용 위치
+		char* _data;	// 버퍼데이터 (버퍼 자체를 의미)
+		
 	};
 }
