@@ -67,12 +67,7 @@ int main()
 	// 11          22           1          초기화 되지 않은 값
           
 	
-
 	// 스트림버퍼 클래스를 이용한 방법
-	uint32_t userlevel2 = 11;
-	uint32_t itemlevel2 = 22;
-	uint32_t status2 = 1;
-
 	RumdaLib::CStreamBuffer stream;
 	auto memoryBuffer2 = new char[100];
 
@@ -126,3 +121,7 @@ int main()
 
 // streamBuffer 작성 후기
 // 정렬되서 오는 다양한 자료형의 패킷을 하나의 메모리버퍼에 쌓고 읽는 작업을 확인하였다.
+// 조금 더 유연한 형태로 받아들일 수 있는 방법이 있는지 개선점 찾기
+// 코드 중복이 많은데 어쩔 수 없나?
+// string, struct, vector List<Object>와 같은 복합적인 패킷 자료형이 왔을때의 대처 방법은?
+
