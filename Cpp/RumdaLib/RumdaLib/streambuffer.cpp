@@ -6,6 +6,7 @@ namespace RumdaLib
 	{
 		_pos = 0;
 		_size = 0;
+		_data = nullptr;
 	}
 	CStreamBuffer::~CStreamBuffer()
 	{

@@ -159,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Libs\header\memorypool.hpp" />
+    <ClInclude Include="Libs\header\messagequeue.hpp" />
     <ClInclude Include="Libs\header\singleton.hpp" />
     <ClInclude Include="Libs\header\streambuffer.h" />
     <ClInclude Include="Libs\header\test.h" />

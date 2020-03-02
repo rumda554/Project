@@ -28,6 +28,13 @@ public:
 	int8_t b[1024];
 };
 
+struct Message
+{
+	int level;
+	int gold;
+	std::list<int> slotSet;
+};
+
 
 int main()
 {
@@ -80,8 +87,27 @@ int main()
 
 
 	delete[] memoryBuffer;
-
 	delete[] memoryBuffer2;
+
+
+
+
+	auto messageData = new Message();
+	std::list<int> slot;
+	slot.push_back(10);
+	slot.push_back(20);
+	slot.push_back(30);
+
+	messageData->level = 1;
+	messageData->gold = 100;
+	messageData->slotSet = slot;
+
+	RumdaLib::CMessageQueue<Message> messageQueue;
+	//messageQueue.Set(100);
+	messageQueue.Push(messageData);
+
+	messageQueue.Pop();
+
 }
 
 // 초기프로젝트 구성 작성 후기
@@ -125,3 +151,11 @@ int main()
 // 코드 중복이 많은데 어쩔 수 없나?
 // string, struct, vector List<Object>와 같은 복합적인 패킷 자료형이 왔을때의 대처 방법은?
 
+
+
+
+// messageQueue 작성 후기
+// 메세지를 전달시 저장해두는 큐가 있으면 좋을듯.
+// 원형 큐로 재작하는게 더 나은가?
+// Set의 의미가 없을듯 싶기도 함
+// 멀티 스레드 환경에서의 안전한 큐로 발전 필요함. (이미 제작된 라이브러리들이 있겠지만)
