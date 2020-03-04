@@ -11,6 +11,7 @@
 #include <cstdint>
 #include <string>
 #include <winsock2.h>
+#include <Ws2tcpip.h>
 
 #include "test.h"
 #include "streambuffer.h"
