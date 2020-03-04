@@ -10,10 +10,10 @@
 // 여기에 미리 컴파일하려는 헤더 추가
 #include <cstdint>
 #include <string>
+#include <winsock2.h>
 
-#include "framework.h"
 #include "test.h"
 #include "streambuffer.h"
-
+#include "socket.h"
 
 #endif //PCH_H
