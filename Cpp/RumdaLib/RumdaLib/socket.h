@@ -35,7 +35,7 @@ namespace RumdaLib
 
 		void SetNagleOff();
 
-	private:
+	public:
 		SOCKET _socket; // 소켓 핸들
 	};
 }
