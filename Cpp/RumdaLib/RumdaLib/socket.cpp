@@ -38,15 +38,26 @@ namespace RumdaLib
 		return bind(_socket, (sockaddr*)&endpoint._endpoint, sizeof(endpoint._endpoint));
 	}
 
+	bool CSocket::Accept(CSocket& acceptedSocket)
+	{
+		acceptedSocket._socket = accept(_socket, nullptr, 0);
+		return (acceptedSocket._socket == -1) ? false : true;
+	}
+
 	void CSocket::Listen()
 	{
 		listen(_socket, SOMAXCONN);
 	}
 
-	bool CSocket::Accept(CSocket& acceptedSocket)
+	void CSocket::Close()
 	{
-		acceptedSocket._socket = accept(_socket, nullptr, 0);
-		return (acceptedSocket._socket == -1) ? false : true;
+		closesocket(_socket);
+	}
+
+	void CSocket::SetNagleOff()
+	{
+		bool option = true;
+		setsockopt(_socket, IPPROTO_TCP, TCP_NODELAY, (const char*)&option, sizeof(option));
 	}
 
 	CEndpoint::CEndpoint()

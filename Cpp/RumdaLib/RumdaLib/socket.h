@@ -31,6 +31,9 @@ namespace RumdaLib
 		bool Bind(const CEndpoint& endpoint);
 		bool Accept(CSocket& acceptedSocket);
 		void Listen();
+		void Close();
+
+		void SetNagleOff();
 
 	private:
 		SOCKET _socket; // 소켓 핸들
