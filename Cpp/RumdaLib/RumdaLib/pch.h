@@ -16,5 +16,6 @@
 #include "test.h"
 #include "streambuffer.h"
 #include "socket.h"
+#include "iocp.h"
 
 #endif //PCH_H
