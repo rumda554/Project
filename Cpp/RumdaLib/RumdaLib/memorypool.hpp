@@ -21,7 +21,10 @@ namespace RumdaLib
 			}
 
 			unsigned char* returnPointer = _Free;
-			_Free = *reinterpret_cast<unsigned char**>(returnPointer);
+			if (returnPointer != 0)
+			{
+				_Free = *reinterpret_cast<unsigned char**>(returnPointer);
+			}
 
 			return returnPointer;
 		}
