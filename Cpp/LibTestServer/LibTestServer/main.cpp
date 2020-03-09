@@ -30,8 +30,8 @@ public:
 
 struct Message
 {
-	int level;
-	int gold;
+	int level = 0;
+	int gold = 0;
 	std::list<int> slotSet;
 };
 
