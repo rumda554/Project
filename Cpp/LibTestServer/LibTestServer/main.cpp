@@ -8,8 +8,8 @@ class CGameClass : public RumdaLib::CSingleton<CGameClass>
 {
 private:
 public:
-	CGameClass();
-	~CGameClass();
+	CGameClass() {};
+	~CGameClass() {};
 };
 
 // 결국 목표는 오브젝트 풀
@@ -41,10 +41,11 @@ int main()
 	std::cout << "Hello World!\n";
 	auto v = RumdaLib::plus(1, 2);
 
-	int loopCnt = 1000000;
+
 
 	auto startT = std::chrono::system_clock::now();
 
+	int loopCnt = 1000000;
 	for (int i = 0; i < loopCnt; i++)
 	{
 		auto* p = new CTestMemoryPool(); // case1 (65000 ms)
@@ -55,6 +56,7 @@ int main()
 	auto endT = std::chrono::system_clock::now();
 	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endT - startT).count();
 	std::cout << "Took" << duration << "Millisec" << std::endl;
+
 
 
 	// int형 데이터 3개 혹은 패킷 데이터를 메모리 버퍼에 쌓아야 할때
@@ -72,8 +74,7 @@ int main()
 	// 이시점의 디버깅으로 메모리값 확인 
 	// 0b 00 00 00 16 00 00 00 01 00 00 00 cd cd cd cd cd ....
 	// 11          22           1          초기화 되지 않은 값
-          
-	
+          	
 	// 스트림버퍼 클래스를 이용한 방법
 	RumdaLib::CStreamBuffer stream;
 	auto memoryBuffer2 = new char[100];
@@ -84,7 +85,6 @@ int main()
 	stream.WriteData(&status);
 	// 메모리값 일치함을 확인
 	// 0b 00 00 00 16 00 00 00 01 00 00 00 cd cd cd cd cd
-
 
 	delete[] memoryBuffer;
 	delete[] memoryBuffer2;
@@ -105,9 +105,18 @@ int main()
 	RumdaLib::CMessageQueue<Message> messageQueue;
 	//messageQueue.Set(100);
 	messageQueue.Push(messageData);
-
 	messageQueue.Pop();
 
+
+
+
+	// TestServer
+	CTestServer testServer;
+	testServer.Init();
+	testServer.Run(); // 계속 돌게 하다가 
+
+	// 어떤 조건에 맞으면 이걸 호출해서 서버를 끈다.
+	testServer.Exit();
 }
 
 // 초기프로젝트 구성 작성 후기
@@ -159,3 +168,14 @@ int main()
 // 원형 큐로 재작하는게 더 나은가?
 // Set의 의미가 없을듯 싶기도 함
 // 멀티 스레드 환경에서의 안전한 큐로 발전 필요함. (이미 제작된 라이브러리들이 있겠지만)
+
+
+
+
+// 라이브러리를 제작하고 그것을 기반으로 한 서버 제작 후기
+// main에 최대한 간결한 형태로 서버를 생성하고 실행 시키도록 준비하기
+// 차후 수정,개선 사항이 있으면 조금식 적용하기 (프로토타입)
+// 테스트 클라 준비 필요
+// 프로토콜을 처리하는 형태로 발전시켜야 한다.
+// 프로토콜 패킷제너레이터 같은 경우 일단은 제작을 고려하지 않는다. (string 형태의 json 사용 고려)
+

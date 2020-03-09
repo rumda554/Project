@@ -156,15 +156,18 @@
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="testserver.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Libs\header\iocp.h" />
     <ClInclude Include="Libs\header\memorypool.hpp" />
     <ClInclude Include="Libs\header\messagequeue.hpp" />
     <ClInclude Include="Libs\header\singleton.hpp" />
+    <ClInclude Include="Libs\header\socket.h" />
     <ClInclude Include="Libs\header\streambuffer.h" />
     <ClInclude Include="Libs\header\test.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="TestServer.cpp" />
+    <ClInclude Include="testserver.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Libs\RumdaLib.lib" />

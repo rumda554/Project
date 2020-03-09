@@ -25,7 +25,7 @@ namespace RumdaLib
 			{
 				_Free = *reinterpret_cast<unsigned char**>(returnPointer);
 			}
-			
+
 			return returnPointer;
 		}
 
