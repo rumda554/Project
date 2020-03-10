@@ -10,8 +10,10 @@
 // 여기에 미리 컴파일하려는 헤더 추가
 #include <cstdint>
 #include <string>
+
 #include <winsock2.h>
 #include <Ws2tcpip.h>
+#include <MSWSock.h>
 
 #include "test.h"
 #include "streambuffer.h"

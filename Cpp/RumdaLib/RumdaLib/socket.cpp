@@ -4,6 +4,7 @@ namespace RumdaLib
 	CSocket::CSocket()
 	{
 		_socket = -1;
+		memset(&_readOverlappedStruct, 0, sizeof(_readOverlappedStruct));
 	}
 
 	CSocket::~CSocket()
@@ -24,6 +25,8 @@ namespace RumdaLib
 			//_socket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 			_socket = WSASocket(AF_INET, SOCK_DGRAM, IPPROTO_UDP, NULL, 0, WSA_FLAG_OVERLAPPED);
 		}
+
+		memset(&_readOverlappedStruct, 0, sizeof(_readOverlappedStruct));
 	}
 
 	bool CSocket::Connect(const CEndpoint& endpoint)
@@ -49,6 +52,11 @@ namespace RumdaLib
 		listen(_socket, SOMAXCONN);
 	}
 
+	int CSocket::Send(const char* data, int length)
+	{
+		return send(_socket, data, length, 0);
+	}
+
 	void CSocket::Close()
 	{
 		closesocket(_socket);
@@ -58,6 +66,51 @@ namespace RumdaLib
 	{
 		bool option = true;
 		setsockopt(_socket, IPPROTO_TCP, TCP_NODELAY, (const char*)&option, sizeof(option));
+	}
+
+	int CSocket::UpdateAcceptContext(CSocket& listenSocket)
+	{
+		sockaddr_in ignore1;
+		sockaddr_in ignore3;
+		INT ignore2, ignore4;
+
+		char ignore[1000];
+		GetAcceptExSockaddrs(ignore, 0, 50, 50, (sockaddr**)&ignore1, &ignore2, (sockaddr**)&ignore3, &ignore4);
+
+		return setsockopt(_socket, SOL_SOCKET, SO_UPDATE_ACCEPT_CONTEXT, (char*)&listenSocket._socket, sizeof(listenSocket._socket));
+	}
+
+	int CSocket::ReceiveOverlapped()
+	{
+		WSABUF b;
+		b.buf = _receiveBuffer;
+		b.len = MaxReceiveLength;
+
+		_readFlags = 0;
+
+		return WSARecv(_socket, &b, 1, NULL, &_readFlags, &_readOverlappedStruct, NULL);
+	}
+
+	bool CSocket::AcceptOverlapped(CSocket& acceptCandidateSocket)
+	{
+		if (AcceptEx == NULL)
+		{
+			DWORD bytes;
+			WSAIoctl(_socket, SIO_GET_EXTENSION_FUNCTION_POINTER, &UUID(WSAID_ACCEPTEX), sizeof(UUID), &AcceptEx, sizeof(AcceptEx), &bytes, NULL, NULL);
+
+			if (AcceptEx == NULL)
+			{
+				//throw Exception("Getting AcceptEx ptr failed.");
+				return false; // error
+			}
+		}
+
+		// 여기에는 accept된 소켓의 로컬주소와 리모트주소가 현재는 버림 - 차후 채크
+		char ignored[200];
+		DWORD ignored2 = 0;
+
+		bool ret = AcceptEx(_socket, acceptCandidateSocket._socket, &ignored, 0, 50, 50, &ignored2, &_readOverlappedStruct) == TRUE;
+		return ret;
 	}
 
 	CEndpoint::CEndpoint()
