@@ -9,6 +9,7 @@
 #include <cstdint>
 #include <winsock2.h>
 #include <Ws2tcpip.h>
+#include <MSWSock.h>
 
 #include <thread>
 #include <unordered_map>

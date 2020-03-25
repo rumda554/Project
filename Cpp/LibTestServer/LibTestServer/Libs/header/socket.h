@@ -31,13 +31,24 @@ namespace RumdaLib
 		bool Bind(const CEndpoint& endpoint);
 		bool Accept(CSocket& acceptedSocket);
 		void Listen();
+		int Send(const char* data, int length); // 패킷의 형태로 수정 필요
 		void Close();
 
 		void SetNagleOff();
 
+		int UpdateAcceptContext(CSocket& listenSocket); //
+		int ReceiveOverlapped(); //
+		bool AcceptOverlapped(CSocket& acceptCandidateSocket);
+
 	public:
 		SOCKET _socket; // 소켓 핸들
 		bool _isReadOverlapped = false;
+
+		LPFN_ACCEPTEX AcceptEx = nullptr;
+		static const int MaxReceiveLength = 8192;
+		char _receiveBuffer[MaxReceiveLength];
+		unsigned long _readFlags = 0;
+		WSAOVERLAPPED _readOverlappedStruct;
 	};
 }
 

@@ -20,10 +20,13 @@ public:
 	CTestServer();
 	virtual ~CTestServer();
 
-	bool Init();
+	void Init();
 	bool Run();
-	bool Exit();
+	void Exit();
 
 private:
 	//...
+	CIocp iocp;
+	CSocket listenSocket;
+	std::shared_ptr<RemoteClient> remoteClientCandidate;
 };
