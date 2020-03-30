@@ -7,17 +7,6 @@ namespace RumdaLib
 		Udp,
 	};
 
-	class Endpoint
-	{
-	public:
-		Endpoint();
-		Endpoint(const char* address, int port);
-		~Endpoint();
-
-		static Endpoint Any;
-		sockaddr_in _endpoint; // ipv4
-	};
-
 	class Socket
 	{
 	public:

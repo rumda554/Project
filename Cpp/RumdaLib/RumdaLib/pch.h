@@ -17,7 +17,8 @@
 
 #include "test.h"
 #include "streambuffer.h"
-#include "socket.h"
+#include "endpoint.h" // 서순
+#include "socket.h"   // 여기서 Endpoint를 사용.
 #include "iocp.h"
 
 #endif //PCH_H
