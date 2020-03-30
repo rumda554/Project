@@ -1,11 +1,11 @@
 #pragma once
 namespace RumdaLib
 {
-	class CStreamBuffer
+	class StreamBuffer
 	{
 	public:
-		CStreamBuffer();
-		virtual ~CStreamBuffer();
+		StreamBuffer();
+		virtual ~StreamBuffer();
 
 	public:
 		bool Set(char* buffer);

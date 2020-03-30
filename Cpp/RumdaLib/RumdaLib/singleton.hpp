@@ -2,11 +2,11 @@
 namespace RumdaLib
 {
 	template<typename T>
-	class CSingleton
+	class Singleton
 	{
 	protected:
-		CSingleton() {}
-		virtual ~CSingleton() {}
+		Singleton() {}
+		virtual ~Singleton() {}
 
 		static void Instance()
 		{
@@ -32,5 +32,5 @@ namespace RumdaLib
 
 	};
 
-	template<typename T> T* CSingleton<T>::_instance = nullptr;
+	template<typename T> T* Singleton<T>::_instance = nullptr;
 }

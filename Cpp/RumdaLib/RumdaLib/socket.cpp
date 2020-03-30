@@ -1,18 +1,18 @@
 #include "pch.h"
 namespace RumdaLib
 {
-	CSocket::CSocket()
+	Socket::Socket()
 	{
 		_socket = -1;
 		memset(&_readOverlappedStruct, 0, sizeof(_readOverlappedStruct));
 	}
 
-	CSocket::~CSocket()
+	Socket::~Socket()
 	{
 		closesocket(_socket);
 	}
 
-	CSocket::CSocket(SocketType socketType)
+	Socket::Socket(SocketType socketType)
 	{
 		if (socketType == SocketType::Tcp)
 		{
@@ -29,46 +29,46 @@ namespace RumdaLib
 		memset(&_readOverlappedStruct, 0, sizeof(_readOverlappedStruct));
 	}
 
-	bool CSocket::Connect(const CEndpoint& endpoint)
+	bool Socket::Connect(const Endpoint& endpoint)
 	{
 		// -1 이면 소켓에러 0 이하면 뭔가 잘못된거임
 		return connect(_socket, (sockaddr*)&endpoint._endpoint, sizeof(endpoint._endpoint));
 	}
 
-	bool CSocket::Bind(const CEndpoint& endpoint)
+	bool Socket::Bind(const Endpoint& endpoint)
 	{
 		// -1 이면 소켓에러 0 이하면 뭔가 잘못된거임
 		return bind(_socket, (sockaddr*)&endpoint._endpoint, sizeof(endpoint._endpoint));
 	}
 
-	bool CSocket::Accept(CSocket& acceptedSocket)
+	bool Socket::Accept(Socket& acceptedSocket)
 	{
 		acceptedSocket._socket = accept(_socket, nullptr, 0);
 		return (acceptedSocket._socket == -1) ? false : true;
 	}
 
-	void CSocket::Listen()
+	void Socket::Listen()
 	{
 		listen(_socket, SOMAXCONN);
 	}
 
-	int CSocket::Send(const char* data, int length)
+	int Socket::Send(const char* data, int length)
 	{
 		return send(_socket, data, length, 0);
 	}
 
-	void CSocket::Close()
+	void Socket::Close()
 	{
 		closesocket(_socket);
 	}
 
-	void CSocket::SetNagleOff()
+	void Socket::SetNagleOff()
 	{
 		bool option = true;
 		setsockopt(_socket, IPPROTO_TCP, TCP_NODELAY, (const char*)&option, sizeof(option));
 	}
 
-	int CSocket::UpdateAcceptContext(CSocket& listenSocket)
+	int Socket::UpdateAcceptContext(Socket& listenSocket)
 	{
 		sockaddr_in ignore1;
 		sockaddr_in ignore3;
@@ -80,7 +80,7 @@ namespace RumdaLib
 		return setsockopt(_socket, SOL_SOCKET, SO_UPDATE_ACCEPT_CONTEXT, (char*)&listenSocket._socket, sizeof(listenSocket._socket));
 	}
 
-	int CSocket::ReceiveOverlapped()
+	int Socket::ReceiveOverlapped()
 	{
 		WSABUF b;
 		b.buf = _receiveBuffer;
@@ -91,7 +91,7 @@ namespace RumdaLib
 		return WSARecv(_socket, &b, 1, NULL, &_readFlags, &_readOverlappedStruct, NULL);
 	}
 
-	bool CSocket::AcceptOverlapped(CSocket& acceptCandidateSocket)
+	bool Socket::AcceptOverlapped(Socket& acceptCandidateSocket)
 	{
 		if (AcceptEx == NULL)
 		{
@@ -113,13 +113,13 @@ namespace RumdaLib
 		return ret;
 	}
 
-	CEndpoint::CEndpoint()
+	Endpoint::Endpoint()
 	{
 		memset(&_endpoint, 0, sizeof(_endpoint));
 		_endpoint.sin_family = AF_INET;
 	}
 
-	CEndpoint::CEndpoint(const char* address, int port)
+	Endpoint::Endpoint(const char* address, int port)
 	{
 		memset(&_endpoint, 0, sizeof(_endpoint));
 		_endpoint.sin_family = AF_INET;
@@ -128,10 +128,10 @@ namespace RumdaLib
 		_endpoint.sin_port = htons((uint16_t)port);
 	}
 
-	CEndpoint::~CEndpoint()
+	Endpoint::~Endpoint()
 	{
 	}
 
-	CEndpoint CEndpoint::Any;
+	Endpoint Endpoint::Any;
 }
 

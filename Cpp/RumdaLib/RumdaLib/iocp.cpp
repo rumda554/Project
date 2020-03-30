@@ -2,7 +2,7 @@
 
 namespace RumdaLib
 {
-	CIocp::CIocp()
+	Iocp::Iocp()
 	{
 		SYSTEM_INFO SystemInfo;
 		GetSystemInfo(&SystemInfo);
@@ -11,17 +11,17 @@ namespace RumdaLib
 		_threadCount = SystemInfo.dwNumberOfProcessors * 2;
 	}
 
-	CIocp::~CIocp()
+	Iocp::~Iocp()
 	{
 		CloseHandle(_iocp);
 	}
 
-	bool CIocp::Regist(CSocket& socket, void* completionKey)
+	bool Iocp::Regist(Socket& socket, void* completionKey)
 	{
 		return CreateIoCompletionPort((HANDLE)socket._socket, _iocp, (ULONG_PTR)completionKey, _threadCount);
 	}
 
-	void CIocp::Work(CIocpEvent& output, int timeoutMs)
+	void Iocp::Work(IocpEvent& output, int timeoutMs)
 	{
 		if (!GetQueuedCompletionStatusEx(_iocp, output._events, MaxEventCount, (ULONG*)&output._eventCount, timeoutMs, FALSE)) 
 		{

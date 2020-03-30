@@ -1,17 +1,17 @@
 #pragma once
 namespace RumdaLib
 {
-	class CSocket;
-	class CIocpEvent;
+	class Socket;
+	class IocpEvent;
 
-	class CIocp
+	class Iocp
 	{
 	public:
-		CIocp();
-		~CIocp();
+		Iocp();
+		~Iocp();
 
-		bool Regist(CSocket& socket, void* completionKey);
-		void Work(CIocpEvent& output, int timeoutMs);
+		bool Regist(Socket& socket, void* completionKey);
+		void Work(IocpEvent& output, int timeoutMs);
 
 	public:
 		static const int MaxEventCount = 100;
@@ -21,12 +21,12 @@ namespace RumdaLib
 		int _threadCount;
 	};
 
-	class CIocpEvent
+	class IocpEvent
 	{
 	public:
 		
 		// GetQueuedCompletionStatus으로 꺼내온 이벤트들
-		OVERLAPPED_ENTRY _events[CIocp::MaxEventCount];
+		OVERLAPPED_ENTRY _events[Iocp::MaxEventCount];
 		int _eventCount;
 	};
 }
