@@ -24,6 +24,7 @@
 #include "Libs/header/memorypool.hpp"
 #include "Libs/header/streambuffer.h"
 #include "Libs/header/messagequeue.hpp"
+#include "Libs/header/endpoint.h"
 #include "Libs/header/socket.h"
 #include "Libs/header/iocp.h"
 

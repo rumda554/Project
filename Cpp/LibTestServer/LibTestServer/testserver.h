@@ -6,7 +6,7 @@ class RemoteClient
 {
 public:
 	std::shared_ptr<std::thread> thread; // 클라이언트 처리를 하는 스레드 1개
-	CSocket tcpConnection;		// accept한 TCP 연결
+	Socket tcpConnection;		// accept한 TCP 연결
 
 	RemoteClient() {}
 	RemoteClient(SocketType socketType) :tcpConnection(socketType) {}
@@ -14,11 +14,11 @@ public:
 
 
 // CTestServer, CGameServer, CLobbyServer, CChatServer ....
-class CTestServer
+class TestServer
 {
 public:
-	CTestServer();
-	virtual ~CTestServer();
+	TestServer();
+	virtual ~TestServer();
 
 	void Init();
 	bool Run();
@@ -26,7 +26,7 @@ public:
 
 private:
 	//...
-	CIocp iocp;
-	CSocket listenSocket;
+	Iocp iocp;
+	Socket listenSocket;
 	std::shared_ptr<RemoteClient> remoteClientCandidate;
 };

@@ -3,25 +3,25 @@
 std::unordered_map<RemoteClient*, std::shared_ptr<RemoteClient>> remoteClients;
 
 
-CTestServer::CTestServer()
+TestServer::TestServer()
 {
 	// 별도의 메서드를 마련하는게 더 좋을듯. start같은
-	CIocp iocp2;
+	Iocp iocp2;
 	iocp = iocp2; // ..?
 
-	CSocket socket(SocketType::Tcp);
+	Socket socket(SocketType::Tcp);
 	listenSocket = socket;
 
 	remoteClientCandidate = std::make_shared<RemoteClient>(SocketType::Tcp);
 }
 
-CTestServer::~CTestServer()
+TestServer::~TestServer()
 {
 }
 
-void CTestServer::Init()
+void TestServer::Init()
 {
-	listenSocket.Bind(CEndpoint("0.0.0.0", 5555));
+	listenSocket.Bind(Endpoint("0.0.0.0", 5555));
 	listenSocket.Listen();
 
 	iocp.Regist(listenSocket, nullptr);
@@ -30,9 +30,9 @@ void CTestServer::Init()
 }
 
 // 자료 참조한 testserver prototype. 기능개선 및 추가할 사항이 있는지 체크해보기
-bool CTestServer::Run()
+bool TestServer::Run()
 {
-	CIocpEvent readEvents;
+	IocpEvent readEvents;
 	iocp.Work(readEvents, 100);
 
 	for (int i = 0; i < readEvents._eventCount; i++)
@@ -122,7 +122,7 @@ bool CTestServer::Run()
 	return true;
 }
 
-void CTestServer::Exit()
+void TestServer::Exit()
 {
 	listenSocket.Close();
 	for (auto i : remoteClients)
@@ -143,7 +143,7 @@ void CTestServer::Exit()
 				i++; // 좀 더 기다려보자.
 		}
 
-		CIocpEvent readEvents;
+		IocpEvent readEvents;
 		iocp.Work(readEvents, 100);
 
 		// 받은 이벤트 각각을 처리합니다.

@@ -5,11 +5,11 @@
 namespace RumdaLib
 {
 	template<typename T>
-	class CMessageQueue
+	class MessageQueue
 	{
 	public:
-		CMessageQueue();
-		virtual ~CMessageQueue();
+		MessageQueue();
+		virtual ~MessageQueue();
 
 		void Set(int size);
 		bool Push(T* message);
@@ -22,12 +22,12 @@ namespace RumdaLib
 
 
 	template<typename T>
-	inline CMessageQueue<T>::CMessageQueue()
+	inline MessageQueue<T>::MessageQueue()
 	{
 	}
 
 	template<typename T>
-	inline CMessageQueue<T>::~CMessageQueue()
+	inline MessageQueue<T>::~MessageQueue()
 	{
 		while (!_queue.empty())
 		{
@@ -39,7 +39,7 @@ namespace RumdaLib
 	}
 
 	template<typename T>
-	inline void CMessageQueue<T>::Set(int size)
+	inline void MessageQueue<T>::Set(int size)
 	{
 		for (int i = 0; i < size; ++i)
 		{
@@ -48,14 +48,14 @@ namespace RumdaLib
 	}
 
 	template<typename T>
-	inline bool CMessageQueue<T>::Push(T* message)
+	inline bool MessageQueue<T>::Push(T* message)
 	{
 		_queue.push(message);
 		return true;
 	}
 
 	template<typename T>
-	inline T* CMessageQueue<T>::Pop()
+	inline T* MessageQueue<T>::Pop()
 	{
 		T* pQueue;
 

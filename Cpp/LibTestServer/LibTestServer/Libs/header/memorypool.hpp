@@ -2,7 +2,7 @@
 namespace RumdaLib
 {
 	template<typename T, int ALLOC_BLOCK_SIZE = 50>
-	class CMemoryPool
+	class MemoryPool
 	{
 	public:
 		
@@ -63,5 +63,5 @@ namespace RumdaLib
 	};
 
 	template <typename T, int ALLOC_BLOCK_SIZE>
-	unsigned char* CMemoryPool<T, ALLOC_BLOCK_SIZE>::_Free;
+	unsigned char* MemoryPool<T, ALLOC_BLOCK_SIZE>::_Free;
 }

@@ -7,38 +7,27 @@ namespace RumdaLib
 		Udp,
 	};
 
-	class CEndpoint
+	class Socket
 	{
 	public:
-		CEndpoint();
-		CEndpoint(const char* address, int port);
-		~CEndpoint();
-
-		static CEndpoint Any;
-		sockaddr_in _endpoint; // ipv4
-	};
-
-	class CSocket
-	{
-	public:
-		CSocket();
-		~CSocket();
+		Socket();
+		~Socket();
 
 	public:
-		CSocket(SocketType socketType);
+		Socket(SocketType socketType);
 
-		bool Connect(const CEndpoint& endpoint);
-		bool Bind(const CEndpoint& endpoint);
-		bool Accept(CSocket& acceptedSocket);
+		bool Connect(const Endpoint& endpoint);
+		bool Bind(const Endpoint& endpoint);
+		bool Accept(Socket& acceptedSocket);
 		void Listen();
 		int Send(const char* data, int length); // 패킷의 형태로 수정 필요
 		void Close();
 
 		void SetNagleOff();
 
-		int UpdateAcceptContext(CSocket& listenSocket); //
+		int UpdateAcceptContext(Socket& listenSocket); //
 		int ReceiveOverlapped(); //
-		bool AcceptOverlapped(CSocket& acceptCandidateSocket);
+		bool AcceptOverlapped(Socket& acceptCandidateSocket);
 
 	public:
 		SOCKET _socket; // 소켓 핸들

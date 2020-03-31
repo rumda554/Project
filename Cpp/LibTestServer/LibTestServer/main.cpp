@@ -4,16 +4,16 @@
 
 #include "stdafx.h"
 
-class CGameClass : public RumdaLib::CSingleton<CGameClass>
+class GameClass : public RumdaLib::Singleton<GameClass>
 {
 private:
 public:
-	CGameClass() {};
-	~CGameClass() {};
+	GameClass() {};
+	~GameClass() {};
 };
 
 // 결국 목표는 오브젝트 풀
-class CTestMemoryPool :public RumdaLib::CMemoryPool<CTestMemoryPool>
+class TestMemoryPool :public RumdaLib::MemoryPool<TestMemoryPool>
 {
 public:
 	int8_t a[1024];
@@ -48,7 +48,7 @@ int main()
 	int loopCnt = 1000000;
 	for (int i = 0; i < loopCnt; i++)
 	{
-		auto* p = new CTestMemoryPool(); // case1 (65000 ms)
+		auto* p = new TestMemoryPool(); // case1 (65000 ms)
 		//auto* p = new CTestMemoryPool2(); // case2 (329000 ms)
 		delete p;
 	}
@@ -76,7 +76,7 @@ int main()
 	// 11          22           1          초기화 되지 않은 값
           	
 	// 스트림버퍼 클래스를 이용한 방법
-	RumdaLib::CStreamBuffer stream;
+	RumdaLib::StreamBuffer stream;
 	auto memoryBuffer2 = new char[100];
 
 	stream.Set(memoryBuffer2);
@@ -102,7 +102,7 @@ int main()
 	messageData->gold = 100;
 	messageData->slotSet = slot;
 
-	RumdaLib::CMessageQueue<Message> messageQueue;
+	RumdaLib::MessageQueue<Message> messageQueue;
 	//messageQueue.Set(100);
 	messageQueue.Push(messageData);
 	messageQueue.Pop();
@@ -111,7 +111,7 @@ int main()
 
 
 	// TestServer
-	CTestServer testServer;
+	TestServer testServer;
 	testServer.Init();
 	testServer.Run(); // 계속 돌게 하다가 
 
