@@ -159,6 +159,7 @@
     <ClCompile Include="testserver.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Libs\header\endpoint.h" />
     <ClInclude Include="Libs\header\iocp.h" />
     <ClInclude Include="Libs\header\memorypool.hpp" />
     <ClInclude Include="Libs\header\messagequeue.hpp" />
