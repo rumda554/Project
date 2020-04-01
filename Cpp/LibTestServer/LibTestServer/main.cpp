@@ -1,7 +1,6 @@
 ﻿// LibTestServer.cpp : 이 파일에는 'main' 함수가 포함됩니다. 거기서 프로그램 실행이 시작되고 종료됩니다.
 //
 
-
 #include "stdafx.h"
 
 class GameClass : public RumdaLib::Singleton<GameClass>
@@ -110,13 +109,11 @@ int main()
 
 
 
-	// TestServer
+	// TestServer (에코서버)
 	TestServer testServer;
 	testServer.Init();
-	testServer.Run(); // 계속 돌게 하다가 
-
-	// 어떤 조건에 맞으면 이걸 호출해서 서버를 끈다.
-	testServer.Exit();
+	testServer.Run();
+	testServer.Exit(); // 어떤 조건에 맞으면 이걸 호출해서 서버강제 종료.
 }
 
 // 이 프로젝트 목적 자체는 완전 실전에서 사용가능한 게임서버라이브러리(엔진)을 만드는게 아니고, 실제 잘 나와있는 게임서버들을 좀 더 쉽게 익히기 위한 스터디 목적이 더 강함.

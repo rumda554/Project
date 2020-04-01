@@ -29,4 +29,6 @@ private:
 	Iocp iocp;
 	Socket listenSocket;
 	std::shared_ptr<RemoteClient> remoteClientCandidate;
+
+	void ProcessClientLeave(std::shared_ptr<RemoteClient> remoteClient);
 };
